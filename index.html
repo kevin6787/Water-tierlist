@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASSER TIERLIST | Official Elite Rankings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050608;
+            --card: #0d0e12;
+            --header: #12141a;
+            --primary: #00a2ff;
+            --accent: #ffaa00;
+            --text: #ffffff;
+            --sub: #828691;
+            /* Lunar Tiers */
+            --ht1: #E8BA3A; --lt1: #D5B355;
+            --ht2: #C4D3E7; --lt2: #A0A7B2;
+            --ht3: #F89F5A; --lt3: #C67B42;
+            --ht4: #81749A; --lt4: #655B79;
+            --ht5: #8F82A8; --lt5: #4a4d58;
+        }
+
+        * { box-sizing: border-box; outline: none; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 50% -20%, #1a2a44 0%, var(--bg) 80%);
+        }
+
+        /* NAVIGATION & SEARCH */
+        .top-bar {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .brand { display: flex; flex-direction: column; }
+        .brand h1 {
+            font-weight: 900;
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--primary);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .search-container { position: relative; }
+        #playerSearch {
+            background: var(--card);
+            border: 1px solid #1f2029;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Inter';
+            width: 250px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        #playerSearch:focus {
+            width: 320px;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.2);
+        }
+
+        /* MAIN TABLE CONTAINER */
+        .table-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px 100px 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .main-card {
+            background: var(--card);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.03);
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            background: var(--header);
+            padding: 25px;
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--sub);
+            font-weight: 800;
+            border-bottom: 2px solid #000;
+        }
+
+        td {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            transition: all 0.2s;
+        }
+
+        tr:last-child td { border: none; }
+        tr:hover td { background: rgba(255,255,255,0.01); }
+
+        /* PLAYER STYLES */
+        .rank-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.05);
+        }
+
+        .player-info { display: flex; align-items: center; gap: 20px; }
+        .avatar-frame {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .avatar-frame img { width: 100%; height: 100%; image-rendering: pixelated; }
+
+        .name-box { display: flex; flex-direction: column; }
+        .name-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+
+        /* ICONS */
+        .icon { width: 16px; height: 16px; border-radius: 3px; image-rendering: pixelated; }
+        .icon-lunar { border: 1.5px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.1); }
+        .icon-uhc { background: #ff3e3e; border: 1.5px solid #8b0000; clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 50% 80%, 18% 100%, 0% 35%); }
+
+        .sub-details { font-size: 0.8rem; color: var(--sub); font-weight: 600; margin-top: 4px; }
+        .pts-tag { color: var(--accent); font-weight: 900; }
+
+        /* REGION */
+        .region-badge {
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: #ccc;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .eu { color: #2ecc71; background: rgba(46, 204, 113, 0.1); border-color: rgba(46, 204, 113, 0.2); }
+
+        /* TIERS */
+        .tier-list { display: flex; gap: 12px; }
+        .tier-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #08090b;
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: 1px solid #1f2029;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .item-sprite { width: 20px; height: 20px; image-rendering: pixelated; }
+        .tier-name { font-weight: 900; font-size: 0.85rem; letter-spacing: 0.5px; }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .top-bar { flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+            th:nth-child(3), td:nth-child(3) { display: none; }
+            .tier-list { flex-direction: column; gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="brand">
+            <h1>Wasser Tierlist</h1>
+            <span>Official 1.21
