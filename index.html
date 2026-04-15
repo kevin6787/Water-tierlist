@@ -3,155 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WASSER TIERLIST | Official 1.21 Elite</title>
+    <title>WASSER TIERLIST | Official 1.21 Elite Rankings</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* VOLLER FARB-CODE FÜR DAS WASSER-DESIGN */
+        /* DAS MASTER DESIGN - WASSER BLUE EDITION */
         :root {
             --bg: #050608;
-            --card: #0b0c12;
-            --header: #0f111a;
-            --primary: #00a2ff;
-            --accent: #ffaa00;
-            --text: #ffffff;
-            --sub: #5d616d;
-            /* TIER FARBEN */
+            --card: #0b0c14;
+            --header-bg: #0f111a;
+            --primary-blue: #00a2ff;
+            --accent-gold: #ffaa00;
+            --text-main: #ffffff;
+            --text-dim: #636775;
+            /* TIER COLOR PALETTE */
             --ht1: #E8BA3A; --lt1: #D5B355;
             --ht2: #C4D3E7; --lt2: #A0A7B2;
             --ht3: #F89F5A; --lt3: #C67B42;
             --ht4: #81749A; --lt4: #655B79;
-            --ht5: #8F82A8; --lt5: #3a3d4d;
+            --ht5: #8F82A8; --lt5: #3e414d;
         }
 
-        * { box-sizing: border-box; transition: all 0.2s ease; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
+            color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% -10%, rgba(0,162,255,0.15) 0%, var(--bg) 70%);
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(0,162,255,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 0% 0%, rgba(0,162,255,0.05) 0%, transparent 30%);
         }
 
-        /* ANIMATIONEN */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* HEADER SECTION */
-        .top-nav {
-            padding: 80px 20px;
+        /* NAVBAR / HEADER */
+        .hero-section {
+            padding: 100px 20px 60px;
             text-align: center;
-            animation: slideIn 0.8s ease;
+            background: linear-gradient(180deg, rgba(15,17,26,1) 0%, rgba(5,6,8,0) 100%);
         }
 
-        .logo-main {
-            font-size: 4rem;
+        .main-title {
+            font-size: 5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -4px;
-            margin: 0;
-            background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
+            letter-spacing: -5px;
+            background: linear-gradient(180deg, #fff 20%, var(--primary-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(0,162,255,0.4));
+            filter: drop-shadow(0 0 30px rgba(0,162,255,0.5));
+            margin-bottom: 10px;
         }
 
-        .status-tag {
+        .sub-badge {
             font-family: 'JetBrains Mono';
-            font-size: 0.8rem;
-            color: var(--primary);
-            letter-spacing: 6px;
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            letter-spacing: 8px;
             text-transform: uppercase;
-            margin-top: 10px;
             font-weight: 700;
         }
 
-        /* TABLE DESIGN */
-        .wrapper {
+        /* RANKING CONTAINER */
+        .main-wrapper {
             max-width: 1400px;
-            margin: -20px auto 100px;
-            padding: 0 20px;
-            animation: slideIn 1s ease;
+            margin: 0 auto 100px;
+            padding: 0 30px;
         }
 
-        .main-container {
+        .tier-card-bg {
             background: var(--card);
-            border-radius: 30px;
+            border-radius: 40px;
             border: 1px solid rgba(255,255,255,0.03);
+            box-shadow: 0 80px 150px rgba(0,0,0,0.9);
             overflow: hidden;
-            box-shadow: 0 60px 120px rgba(0,0,0,0.9);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
         }
 
         th {
-            background: var(--header);
-            padding: 30px;
-            font-size: 0.75rem;
-            color: var(--sub);
+            background: var(--header-bg);
+            padding: 35px;
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 800;
-            border-bottom: 1px solid #000;
+            letter-spacing: 3px;
+            font-weight: 900;
+            border-bottom: 2px solid #000;
         }
 
         td {
-            padding: 22px 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.015);
+            padding: 25px 35px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            vertical-align: middle;
         }
 
         tr:hover td {
-            background: rgba(255,255,255,0.01);
+            background: rgba(255,255,255,0.015);
         }
 
-        /* PLAYER STYLES */
-        .pos-num {
+        /* PLAYER COMPONENTS */
+        .rank-id {
             font-family: 'JetBrains Mono';
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #161821;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #12141c;
             font-style: italic;
         }
 
-        .player-box {
+        .player-row {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
         }
 
-        .mc-head {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
+        .avatar-frame {
+            position: relative;
+            width: 64px;
+            height: 64px;
+        }
+
+        .mc-skin {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
             image-rendering: pixelated;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        .name-stack {
-            display: flex;
-            flex-direction: column;
-        }
+        .p-details { display: flex; flex-direction: column; }
 
-        .p-name {
+        .p-username {
+            font-size: 1.5rem;
             font-weight: 900;
-            font-size: 1.3rem;
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            letter-spacing: -0.5px;
+            gap: 15px;
         }
 
-        .god-badge {
-            font-size: 0.6rem;
-            background: var(--primary);
+        .god-status {
+            font-size: 0.65rem;
+            background: linear-gradient(90deg, #ffaa00, #ffea00);
             color: #000;
-            padding: 3px 8px
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255,170,0,0.4);
+        }
+
+        .p-meta {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        /* TIER GRID SYSTEM */
+        .tier-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: fit-content;
+        }
+
+        .tier-tag {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            font-weight: 900;
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+
+        .mode-icon {
+            width: 22px;
+            height: 22px;
+            image-rendering: pixelated;
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { 
+            background: #1a1c2b; 
+            border-radius: 10px; 
+            border: 3px solid var(--bg);
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-blue); }
+
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <h1 class="main-title">Wasser Tierlist</h1>
+        <div class="sub-badge">Official 1.21 S-Tier Rankings</div>
+    </section>
+
+    <div class="main-wrapper">
+        <div class="tier-card-bg">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="120"># Rank</th>
+                        <th>Competitor Profile</th>
+                        <th>Skill
